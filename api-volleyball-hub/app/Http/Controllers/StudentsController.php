@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aluno;
-use App\Models\Alunos;
-use App\Models\Turma;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
