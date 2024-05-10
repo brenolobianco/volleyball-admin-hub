@@ -26,14 +26,19 @@ class AuthController extends Controller
             return response()->json(['message' => 'Credenciais inválidas'], 401);
         }
     }
+    public function logout(Request $request)
+    {
+        Auth::logout();
 
+        return response()->json(['message' => 'Logout realizado com sucesso'], 200);
+    }
     public function cadastrar(Request $request)
     {
         $validatedData = $request->validate([
             'nome' => 'required|string|min:6',
             'login' => 'required|string|unique:users',
             'password' => 'required|string|min:8',
-            'email' => 'required|string|email|unique:users',
+           
             'tipo' => 'required|string',
 
         ]);
@@ -42,10 +47,10 @@ class AuthController extends Controller
 
         $user = User::create([
             'nome' => $validatedData['nome'],
-            'login' => $validatedData['email'],
+            'login' => $validatedData['login'],
             'password' => bcrypt($validatedData['password']), // Criptografando a senha
             'tipo' => $validatedData['tipo'],
-            'email' => $validatedData['email'],
+       
           
 
         ]);
@@ -54,6 +59,27 @@ class AuthController extends Controller
             'message' => 'Usuário registrado com sucesso',
             'user' => $user
         ], 201);
+    }  public function listarUsuarios()
+    {
+        // Recupere todos os usuários
+        $users = User::all();
+
+        return response()->json($users, 200);
+    }
+
+    public function deletarUsuario($id)
+    {
+        // Buscar usuário pelo ID
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'Usuário não encontrado'], 404);
+        }
+
+        // Deletar o usuário
+        $user->delete();
+
+        return response()->json(['message' => 'Usuário deletado com sucesso'], 200);
     }
 
 

@@ -21,13 +21,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login',  [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
 Route::post ('/cadastrar',[AuthController::class,'cadastrar']);
-
 
 
 // Rotas protegidas
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
+    
+Route::get('/usuarios', [AuthController::class, 'listarUsuarios']); 
+Route::delete('/usuarios/{id}', [AuthController::class, 'deletarUsuario']); 
     Route::get('/turmas', [ClassController::class, 'listarTurmas']);
     Route::post('/turmas', [ClassController::class, 'cadastrarTurma']);
     Route::put('/turmas/{id}', [ClassController::class, 'editarTurma']);
@@ -38,5 +41,19 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post ('/alunos',[StudentsController::class,'cadastrarAluno']);
     Route::put ('/alunos/{id}',[StudentsController::class,'editarAluno']);
     Route::delete ('/alunos/{id}',[StudentsController::class,'deletarAluno']);
+    Route::get('/user-type', function () {
+        $user = auth()->user();
+        if ($user) {
+            return response()->json([
+                'user_type' => $user->tipo,
+                'authenticated' => true
+            ]);
+        } else {
+            return response()->json([
+                'authenticated' => false
+            ]);
+        }
+    });
+    
   
 });
