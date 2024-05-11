@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Button, ContentContainer, ListContainer, ListHeader, ListItem, PageContainer } from "./Styles";
-import { EmptyMessage } from "../../Dashboard/Styles";
+import { EmptyMessage } from "../../Home/Styles";
 import fetchUserType from "../../utils/apiUtils";
 import { NavBar } from "../../../components/SideBard/Styles";
 import SideBar from "../../../components/SideBard/SideBar";
@@ -92,7 +92,7 @@ const ListClass: React.FC = () => {
           <EmptyMessage>Nenhuma turma cadastrada.</EmptyMessage>
         )}
         <nav>
-          <ul className="pagination">
+          <ul style={{ display: "flex", justifyContent: "center", flexDirection: "row", gap: "10px"}} className="pagination">
             {Array.from({ length: totalPages }, (_, i) => (
               <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
                 <button onClick={() => paginate(i + 1)} className="page-link">

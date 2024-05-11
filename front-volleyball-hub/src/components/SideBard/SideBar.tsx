@@ -46,7 +46,7 @@ const SideBar = () => {
       // Chamar o endpoint de logout
       axios.post(`${apiUrl}/logout`);
 
-      navigate("/login"); // Supondo que você tenha uma função navigate para redirecionar para a página de login
+      navigate("/"); // Supondo que você tenha uma função navigate para redirecionar para a página de login
     } catch (error) {
       console.error("Erro ao fazer logout:", error);
     }

@@ -8,19 +8,19 @@ export const Container = styled.div`
 `;
 
 export const LoginForm = styled.form`
- 
+ border:1px solid red ;
  width: 482px;
-margin-top: 150px;
+margin-top: 40px;
   background: rgba(255, 255,240, 0.5);
 
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
   justify-content: center;
   align-items: center;
 
-  padding: 38px;
+  padding: 30px;
 
   box-shadow: 0 8px 20px 0 ;
   backdrop-filter: blur(8.5px);
@@ -32,16 +32,16 @@ margin-top: 150px;
 `;
 
 export const Title = styled.h2`
-  font-size: 22px;
+  font-size: 19px;
 `;
 
 export const Input = styled.input`
   background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  border-radius: 2rem;
+  box-shadow: 0 8px 25px 0 rgba(31, 38, 135, 0.37);
+  border-radius: 0.4rem;
   width: 100%;
 
-  padding: 13px;
+  padding: 14px;
   border: none;
   outline: none;
   color: #3c354e;
@@ -49,9 +49,9 @@ export const Input = styled.input`
   font-weight: bold;
   &:focus {
     display: inline-block;
-    box-shadow: 0 0 0 0.2rem #b9abe0;
+    box-shadow: 0 0 0 0.2 white;
     backdrop-filter: blur(12rem);
-    border-radius: 2rem;
+    
   }
   &::placeholder {
     color: #3c354e;
@@ -83,11 +83,12 @@ export const InputImage = styled.input`
   }
 `;
 export const Select = styled.select`
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  border-radius: 2rem;
-  width: 110%;
-  padding: 1rem;
+ background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 25px 0 rgba(31, 38, 135, 0.37);
+  border-radius: 0.4rem;
+  width: 106%;
+
+  padding: 14px;
   border: none;
   outline: none;
   color: #3c354e;
@@ -95,9 +96,14 @@ export const Select = styled.select`
   font-weight: bold;
   &:focus {
     display: inline-block;
-    box-shadow: 0 0 0 0.2rem #b9abe0;
+    box-shadow: 0 0 0 0.2 white;
     backdrop-filter: blur(12rem);
-    border-radius: 2rem;
+    
+  }
+  &::placeholder {
+    color: #3c354e;
+    font-weight: 100;
+    font-size: 1rem;
   }
 `;
 

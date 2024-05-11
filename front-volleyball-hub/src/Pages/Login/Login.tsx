@@ -7,7 +7,6 @@ import {
   Title,
   Input,
   Button,
-  ButtonNavigate,
   ErrorText,
 } from "./Styles";
 import { toast } from "react-toastify";
@@ -25,7 +24,7 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState("");
   const apiUrl = process.env.REACT_APP_API_URL;
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    try { console.log(apiUrl)
+    try { 
       const response = await fetch(`${apiUrl}/login`, {
         method: "POST",
         headers: {
@@ -36,15 +35,17 @@ const LoginPage: React.FC = () => {
       });
 
       const json = await response.json();
-      console.log(json.user)
+     
       if (response.ok) {
         const token = json.token;
         localStorage.setItem("userId", json.usuario.id);
         localStorage.setItem("@VolleyHub:token", token);
         localStorage.setItem("userType", json.usuario.tipo);
         localStorage.setItem("UserName", json.usuario.nome);
-     console.log(json.user)
-       navigate("/dashboard");
+  setTimeout(() => {
+    navigate("/dashboard");
+  },2000)
+     
         toast.success("Login realizado com sucesso!");
       } else {
         setError("Credenciais inválidas");
@@ -59,7 +60,6 @@ const LoginPage: React.FC = () => {
   };
   return (
     <Container>
-     
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <Title>Login</Title>
         <Input type="login" {...register("login")} placeholder="Login" />

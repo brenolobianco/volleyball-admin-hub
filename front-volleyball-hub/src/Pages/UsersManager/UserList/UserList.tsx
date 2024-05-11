@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Navbar from "../../components/SideBard/SideBar";
-import fetchUserType from "../../Pages/utils/apiUtils";
+import Navbar from "../../../components/SideBard/SideBar";
+import fetchUserType from "../../utils/apiUtils";
 import { StudentContainer, Button, ContentContainer, EmptyMessage } from "./Styles";
-import { Container } from "../Students/Styles";
+import { Container } from "../../Students/ListStudents/Styles";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const itemsPerPage = 5;

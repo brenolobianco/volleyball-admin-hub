@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Container, LoginForm, Title, Input, Button, Label } from "./Styles";
+import { Container, LoginForm, Title, Input, Button, Label, Select } from "./Styles";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import useUserType from "../../utils/apiUtils";
@@ -82,10 +82,16 @@ const RegisterStudents: React.FC = () => {
         formData.append("hospital_preferido", data.hospital_preferido);
         formData.append("nome_responsavel", data.nome_responsavel);
         formData.append("telefone_responsavel", data.telefone_responsavel);
-        formData.append("atestado_medico", data.atestado_medico);
-        formData.append("termo_conduta", data.termo_conduta);
-        formData.append("direitos_imagem", data.direitos_imagem);
-
+       
+        if (data.atestado_medico.length > 0) {
+          formData.append("atestado_medico", data.atestado_medico[0]);
+      }
+      if (data.termo_conduta.length > 0) {
+          formData.append("termo_conduta", data.termo_conduta[0]);
+      }
+      if (data.direitos_imagem.length > 0) {
+          formData.append("direitos_imagem", data.direitos_imagem[0]);
+      }
         const response = await axios.post(`${apiUrl}/alunos`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -118,7 +124,7 @@ const RegisterStudents: React.FC = () => {
       {" "}
       <Navbar />
       <Container>
-        <LoginForm onSubmit={handleSubmit(onSubmit)}>
+      <LoginForm onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
           <Title>Cadastrar Aluno</Title>
           <Input type="text" {...register("nome")} placeholder="Nome" />
           <Input
@@ -132,17 +138,17 @@ const RegisterStudents: React.FC = () => {
             {...register("nome_escola")}
             placeholder="Nome da Escola"
           />{" "}
-          <Label>
-            Turma:
-            <select {...register("id_turma")}>
+        
+         
+            <Select {...register("id_turma")}>
               <option value="">Escolha a turma</option>
               {turmas.map((turma) => (
                 <option key={turma.id} value={turma.id}>
                   {`${turma.titulo} - ${turma.horario}`}
                 </option>
               ))}
-            </select>
-          </Label>
+            </Select>
+         
           <Input
             type="text"
             {...register("nome_responsavel")}
@@ -153,12 +159,7 @@ const RegisterStudents: React.FC = () => {
             {...register("telefone_responsavel")}
             placeholder="Telefone do Responsável"
           />
-          <Input
-            type="file"
-            accept=".pdf, .png, .jpg, .jpeg"
-            {...register("atestado_medico")}
-            placeholder="Atestado Médico"
-          />
+         
           <Input
             type="file"
             accept=".pdf, .png, .jpg, .jpeg"

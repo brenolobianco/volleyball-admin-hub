@@ -21,7 +21,7 @@ export const ListContainer = styled.div`
 export const ListHeader = styled.div`
   background-color: #f0f0f0;
   border-bottom: 1px solid #ddd;
-  padding: 10px;
+  padding: 5px;
   border-radius: 8px 8px 0 0;
 `;
 

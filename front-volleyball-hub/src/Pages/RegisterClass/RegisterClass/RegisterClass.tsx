@@ -6,7 +6,7 @@ import { Container, LoginForm, Title, Input, Button, Label } from "./Styles";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-import Navbar from "../../components/SideBard/SideBar";
+import Navbar from "../../../components/SideBard/SideBar";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 type FormData = {

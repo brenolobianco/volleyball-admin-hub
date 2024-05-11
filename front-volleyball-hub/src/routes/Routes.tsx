@@ -1,12 +1,12 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { ProtectRoute, ProtectRoutePermission } from "./ProtectedRoute";
-import Dashboard from "../Pages/Dashboard/Dashboard";
+import Dashboard from "../Pages/Home/Home";
 
 import Login from "../Pages/Login/Login";
 import RegisterPage from "../Pages/Students/Register/RegisterStudents";
-import ListStudents from "../Pages/Students/ListSudents";
-import RegisterClass from "../Pages/RegisterClass/RegisterClass";
-import UserAdmin from "../Pages/UsersManager/UserAmin";
+import ListStudents from "../Pages/Students/ListStudents/ListSudents";
+import RegisterClass from "../Pages/RegisterClass/RegisterClass/RegisterClass";
+import UserAdmin from "../Pages/UsersManager/UserList/UserList";
 import UserRegister from "../Pages/UsersManager/UserRegister/UserRegister";
 import ListClass from "../Pages/RegisterClass/ClassList/ClassList";
 
@@ -15,7 +15,7 @@ export const RoutesMain = () => {
     <Routes>
       {/* Rotas comuns para ambos os tipos de usuário */}
 
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Login />} />
 
       {/* Rota de proteção para páginas restritas */}
       <Route element={<ProtectRoute />}>

@@ -8,7 +8,7 @@ export const ProtectRoute = () => {
   if (!token) {
     // Se não houver token, redireciona para a página inicial
     toast.error("Acesso negado, por favor realize o login");
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
 
