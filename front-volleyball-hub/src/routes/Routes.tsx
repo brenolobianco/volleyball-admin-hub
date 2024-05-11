@@ -3,8 +3,8 @@ import { ProtectRoute, ProtectRoutePermission } from "./ProtectedRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 
 import Login from "../Pages/Login/Login";
-import RegisterPage from "../Pages/Register/Register";
-import ListStudents from "../Pages/ListStudents/ListSudents";
+import RegisterPage from "../Pages/Students/Register/RegisterStudents";
+import ListStudents from "../Pages/Students/ListSudents";
 import RegisterClass from "../Pages/RegisterClass/RegisterClass";
 import UserAdmin from "../Pages/UsersManager/UserAmin";
 import UserRegister from "../Pages/UsersManager/UserRegister/UserRegister";
@@ -21,17 +21,17 @@ export const RoutesMain = () => {
       <Route element={<ProtectRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/alunos" element={<ListStudents />} />
-
+        <Route path="/dashboard/turmas" element={<ListClass />} />
         <Route element={<ProtectRoutePermission />}>
           <Route path="/dashboard/cadastraralunos" element={<RegisterPage />} />
           <Route
             path="/dashboard/cadastrarturmas"
             element={<RegisterClass />}
-          /> <Route path="/dashboard/turmas" element={<ListClass />} />
- <Route path="/dashboard/cadastraradmin" element={<UserRegister />} />
+          />{" "}
+         
+          <Route path="/dashboard/cadastraradmin" element={<UserRegister />} />
           <Route path="/dashboard/admin" element={<UserAdmin />} />
         </Route>
-
       </Route>
     </Routes>
   );

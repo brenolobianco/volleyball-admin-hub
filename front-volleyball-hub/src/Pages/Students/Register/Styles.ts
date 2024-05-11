@@ -8,9 +8,10 @@ export const Container = styled.div`
 `;
 
 export const LoginForm = styled.form`
-  width: 482px;
-margin-top: 450px;
-  background: rgba(255, 255, 255, 0.15);
+ 
+ width: 482px;
+margin-top: 150px;
+  background: rgba(255, 255,240, 0.5);
 
   border-radius: 10px;
   display: flex;
@@ -20,8 +21,8 @@ margin-top: 450px;
   align-items: center;
 
   padding: 38px;
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px 0 rgba(31, 30, 135, 0.37);
+
+  box-shadow: 0 8px 20px 0 ;
   backdrop-filter: blur(8.5px);
   -webkit-backdrop-filter: blur(8.5px);
   border-radius: 10px;

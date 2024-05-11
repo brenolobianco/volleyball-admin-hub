@@ -5,9 +5,9 @@ import { toast } from "react-toastify";
 import { Container, LoginForm, Title, Input, Button, Label } from "./Styles";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import useUserType from "../utils/apiUtils";
-import Navbar from "../../components/SideBard/SideBar";
-import fetchUserType from "../utils/apiUtils";
+import useUserType from "../../utils/apiUtils";
+import Navbar from "../../../components/SideBard/SideBar";
+import fetchUserType from "../../utils/apiUtils";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -29,12 +29,12 @@ type FormData = {
   id_turma: string;
 };
 
-const RegisterPage: React.FC = () => {
-  const { register, handleSubmit } = useForm<FormData>();
+const RegisterStudents: React.FC = () => {
+  const { register, handleSubmit, watch } = useForm<FormData>();
   const [turmas, setTurmas] = useState<any[]>([]);
   const [userType, setUserType] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const [showDetalhesPlanoSaude, setShowDetalhesPlanoSaude] = useState(false);
   useEffect(() => {
     fetchUserType().then(({ userType, isAuthenticated }) => {
       setUserType(userType);
@@ -89,9 +89,8 @@ const RegisterPage: React.FC = () => {
         const response = await axios.post(`${apiUrl}/alunos`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
-           
-              Authorization: `Bearer ${token}`,
-        
+
+            Authorization: `Bearer ${token}`,
           },
         });
 
@@ -111,7 +110,9 @@ const RegisterPage: React.FC = () => {
       );
     }
   };
-
+  const handlePlanoSaudeChange = () => {
+    setShowDetalhesPlanoSaude(!showDetalhesPlanoSaude);
+  };
   return (
     <>
       {" "}
@@ -153,29 +154,38 @@ const RegisterPage: React.FC = () => {
             placeholder="Telefone do Responsável"
           />
           <Input
-            type="text"
+            type="file"
+            accept=".pdf, .png, .jpg, .jpeg"
             {...register("atestado_medico")}
             placeholder="Atestado Médico"
           />
           <Input
-            type="text"
+            type="file"
+            accept=".pdf, .png, .jpg, .jpeg"
             {...register("termo_conduta")}
             placeholder="Termo de Conduta"
           />
           <Input
-            type="text"
+            type="file"
+            accept=".pdf, .png, .jpg, .jpeg"
             {...register("direitos_imagem")}
             placeholder="Direitos de Imagem"
           />
           <Label>
             Plano de Saúde:
-            <Input type="checkbox" {...register("plano_saude")} />
+            <Input
+              type="checkbox"
+              {...register("plano_saude")}
+              onChange={handlePlanoSaudeChange}
+            />
           </Label>
-          <Input
-            type="text"
-            {...register("detalhes_plano_saude")}
-            placeholder="Detalhes do Plano de Saúde"
-          />
+          {watch("plano_saude") && (
+            <Input
+              type="text"
+              {...register("detalhes_plano_saude")}
+              placeholder="Detalhes do Plano de Saúde"
+            />
+          )}
           <Input
             type="text"
             {...register("hospital_preferido")}
@@ -188,4 +198,4 @@ const RegisterPage: React.FC = () => {
   );
 };
 
-export default RegisterPage;
+export default RegisterStudents;

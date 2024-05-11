@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Navbar from "../../components/SideBard/SideBar";
 import fetchUserType from "../../Pages/utils/apiUtils";
 import { StudentContainer, Button, ContentContainer, EmptyMessage } from "./Styles";
+import { Container } from "../Students/Styles";
 
 const apiUrl = process.env.REACT_APP_API_URL;
+const itemsPerPage = 5;
 
 const UserAdmin: React.FC = () => {
   const [users, setUsers] = useState([]);
   const [userType, setUserType] = useState("");
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetchUserType().then(({ userType, isAuthenticated }) => {
+    fetchUserType().then(({ userType }) => {
       setUserType(userType);
-      setIsAuthenticated(isAuthenticated);
     });
 
     const fetchUsers = async () => {
       try {
-        const token = localStorage.getItem("@VolleyHub:token"); // Obter token do localStorage
+        const token = localStorage.getItem("@VolleyHub:token");
         const response = await axios.get(`${apiUrl}/usuarios`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -30,7 +29,7 @@ const UserAdmin: React.FC = () => {
         });
         setUsers(response.data);
       } catch (error) {
-        toast.error("Erro ao carregar lista de estudantes.");
+        toast.error("Erro ao carregar lista de usuários.");
       }
     };
 
@@ -41,7 +40,6 @@ const UserAdmin: React.FC = () => {
     try {
       const token = localStorage.getItem("@VolleyHub:token");
 
-      // Verificar se o tipo de usuário é administrador
       if (userType !== "administrador") {
         toast.error("Você não tem permissão para realizar esta operação.");
         return;
@@ -53,32 +51,54 @@ const UserAdmin: React.FC = () => {
         },
       });
       setUsers(users.filter((user: any) => user.id !== id));
-      toast.success("Estudante deletado com sucesso.");
+      toast.success("Usuário deletado com sucesso.");
     } catch (error) {
-      toast.error("Erro ao deletar estudante.");
+      toast.error("Erro ao deletar usuário.");
     }
   };
 
-  return ( <div>
-    <Navbar />
-    <ContentContainer>
-      {users.length > 0 ? (
-        users.map((user: any) => (
-          <StudentContainer key={user.id}>
-            <p>Nome: {user.nome}</p>
-            <p>Login: {user.login}</p>
-            <p>Tipo: {user.tipo}</p>
-            <p>Cadastrado em: {user.created}</p>
-            {userType === "administrador" && (
-              <Button onClick={() => handleDelete(user.id)}>Deletar</Button>
-            )}
-          </StudentContainer>
-        ))
-      ) : (
-        <EmptyMessage>Nenhum usuário encontrado.</EmptyMessage>
-      )}
-    </ContentContainer>
-  </div>
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentUsers = users.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  return (
+    <div>
+      <Navbar />
+      <Container>
+        <StudentContainer>
+          {currentUsers.length > 0 ? (
+            currentUsers.map((user: any) => (
+              <StudentContainer key={user.id}>
+                <p>Nome: {user.nome}</p>
+                <p>Login: {user.login}</p>
+                <p>Tipo: {user.tipo}</p>
+                <p>Cadastrado em: {user.created}</p>
+                {userType === "administrador" && (
+                  <Button onClick={() => handleDelete(user.id)}>Deletar</Button>
+                )}
+              </StudentContainer>
+            ))
+          ) : (
+            <EmptyMessage>Nenhum usuário encontrado.</EmptyMessage>
+          )}
+          <nav>
+            <ul className="pagination">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
+                  <button onClick={() => paginate(i + 1)} className="page-link">
+                    {i + 1}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </StudentContainer>
+      </Container>
+    </div>
   );
 };
 

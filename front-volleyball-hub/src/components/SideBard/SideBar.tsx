@@ -82,11 +82,11 @@ const SideBar = () => {
           {showAlunosSubMenu && (
             <>
               {userType === "administrador" && (
-                <SubmenuItem to="/dashboard/alunos">
+               <SubmenuItem to="/dashboard/cadastraralunos">Cadastrar Alunos</SubmenuItem>
+              )}
+          <SubmenuItem to="/dashboard/alunos">
                   Listar Alunos
                 </SubmenuItem>
-              )}
-              <SubmenuItem to="/dashboard/cadastraralunos">Cadastrar Alunos</SubmenuItem>
             </>
           )}
         </NavItemWithSubMenu>

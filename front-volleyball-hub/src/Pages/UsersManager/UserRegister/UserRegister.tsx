@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Container, LoginForm, Title, Input, Button, Label } from "./Styles";
+import { Container, Title, Input, Button, RegisterForm } from "./Styles";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import useUserType from "../../utils/apiUtils";
@@ -79,7 +79,7 @@ const UserRegister: React.FC = () => {
       {" "}
       <Navbar />
       <Container>
-        <LoginForm onSubmit={handleSubmit(onSubmit)}>
+        <RegisterForm onSubmit={handleSubmit(onSubmit)}>
           <Title>Cadastrar Usuario</Title>
           <Input type="text" {...register("nome")} placeholder="Nome" />
           <Input type="text" {...register("login")} placeholder="Login" />
@@ -93,7 +93,7 @@ const UserRegister: React.FC = () => {
             <option value="administrador">Administrador</option>
           </select>
           <Button type="submit">Cadastrar</Button>
-        </LoginForm>
+        </RegisterForm>
       </Container>
     </>
   );
