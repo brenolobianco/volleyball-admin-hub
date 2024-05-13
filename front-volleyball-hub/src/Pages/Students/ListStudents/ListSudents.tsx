@@ -21,7 +21,7 @@ const ListStudents: React.FC = () => {
   const [students, setStudents] = useState([]);
   const [expanded, setExpanded] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-
+ 
   useEffect(() => {
     const fetchStudents = async () => {
       try {
@@ -33,6 +33,8 @@ const ListStudents: React.FC = () => {
         });
         console.log(response.data);
         setStudents(response.data);
+     
+      
       } catch (error) {
         toast.error("Erro ao carregar lista de estudantes.");
       }
@@ -40,6 +42,37 @@ const ListStudents: React.FC = () => {
 
     fetchStudents();
   }, []);
+  async function downloadFile(studentId: number, fileType: string) {
+    try {
+     
+      const token = localStorage.getItem("@VolleyHub:token");
+  
+      const response = await axios.get(`${apiUrl}/alunos/${studentId}/download/${fileType}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/octet-stream',
+            ContentType: 'application/json'
+        },
+        responseType: 'blob' // Indica ao Axios para tratar a resposta como um blob
+    });
+
+    
+
+    const blob = new Blob([response.data], { type: response.headers['content-type'] });
+    const url = window.URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${fileType}`; // Nome do arquivo
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+} catch (error) {
+    console.error(error);
+    // Trate o erro conforme necessário
+}
+}
+
 
   const handleDelete = async (id: number) => {
     try {
@@ -85,7 +118,12 @@ const ListStudents: React.FC = () => {
             currentItems.map((student: any) => (
               <StudentContainer key={student.id}>
                 <StudentHeader>
-                  <h2>{student.nome}</h2>  <Button onClick={() => handleExpand(student.id)}>
+
+
+                  <h2>{student.nome}</h2>  
+                
+
+ <Button onClick={() => handleExpand(student.id)}>
                   {expanded === student.id ? "Detalhes" : "Mostrar mais"}
                 </Button>
                 </StudentHeader>
@@ -103,6 +141,10 @@ const ListStudents: React.FC = () => {
                     <p>
                       <strong>Nome da Escola:</strong>{" "}
                       {student.nome_escola || "Não disponível"}
+                    </p>
+                    <p>
+                      <strong>Turma:</strong>{" "}
+                      {student.turma.titulo + " - " + student.turma.horario || "Não disponível"}
                     </p>
                     <p>
                       <strong>Plano de Saúde:</strong>{" "}
@@ -127,12 +169,10 @@ const ListStudents: React.FC = () => {
                     <p>
                       <strong>Atestado Médico:</strong>
                       {student.atestado_medico ? (
-                        <a
-                          href={`${apiUrl}/alunos/${student.id}`}
-                          download
+                        <button onClick={() => downloadFile(student.id, 'atestado_medico')}
                         >
                           Baixar Atestado Médico
-                        </a>
+                        </button>
                       ) : (
                         "Não disponível"
                       )}
@@ -140,12 +180,21 @@ const ListStudents: React.FC = () => {
                     <p>
                       <strong>Termo de Conduta:</strong>
                       {student.termo_conduta ? (
-                        <a
-                          href={`${apiUrl}/alunos/${student.id}/download/termo_conduta`}
-                          download
+                        <button onClick={() => downloadFile(student.id, 'termo_conduta')}
                         >
-                          Baixar Termo de Conduta
-                        </a>
+                        Termo Conduta
+                        </button>
+                      ) : (
+                        "Não disponível"
+                      )}
+                    </p>
+                    <p>
+                      <strong>Imagem:</strong>
+                      {student.imagem_perfil ? (
+                        <button onClick={() => downloadFile(student.id, 'imagem_perfil')}
+                        >
+                      Baixar foto
+                        </button>
                       ) : (
                         "Não disponível"
                       )}
@@ -153,12 +202,10 @@ const ListStudents: React.FC = () => {
                     <p>
                       <strong>Direitos de Imagem:</strong>
                       {student.direitos_imagem ? (
-                        <a
-                          href={`${apiUrl}/alunos/${student.id}/download/direitos_imagem`}
-                          download
+                        <button onClick={() => downloadFile(student.id, 'direitos_imagem')}
                         >
-                          Baixar Direitos de Imagem
-                        </a>
+                          Baixar Direitos de imagem
+                        </button>
                       ) : (
                         "Não disponível"
                       )}

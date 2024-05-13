@@ -27,6 +27,7 @@ type FormData = {
   termo_conduta: string;
   direitos_imagem: string;
   id_turma: string;
+  imagem_perfil: string;
 };
 
 const RegisterStudents: React.FC = () => {
@@ -82,6 +83,7 @@ const RegisterStudents: React.FC = () => {
         formData.append("hospital_preferido", data.hospital_preferido);
         formData.append("nome_responsavel", data.nome_responsavel);
         formData.append("telefone_responsavel", data.telefone_responsavel);
+        formData.append("imagem_perfil", data.imagem_perfil);
        
         if (data.atestado_medico.length > 0) {
           formData.append("atestado_medico", data.atestado_medico[0]);
@@ -92,6 +94,9 @@ const RegisterStudents: React.FC = () => {
       if (data.direitos_imagem.length > 0) {
           formData.append("direitos_imagem", data.direitos_imagem[0]);
       }
+      if (data.imagem_perfil.length > 0) {
+        formData.append("imagem_perfil", data.imagem_perfil[0]);
+    }
         const response = await axios.post(`${apiUrl}/alunos`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -159,13 +164,32 @@ const RegisterStudents: React.FC = () => {
             {...register("telefone_responsavel")}
             placeholder="Telefone do Responsável"
           />
-         
+          <Label>Imagem Perfil</Label>
+           <Input
+            type="file"
+            accept=".pdf, .png, .jpg, .jpeg"
+            {...register("imagem_perfil")}
+            placeholder="imagem PErfil"
+          />
+                    <Label>Atestado Médico</Label>
+
+          <Input
+            type="file"
+            accept=".pdf, .png, .jpg, .jpeg"
+            {...register("atestado_medico")}
+            placeholder="Atestado Médico"
+          />
+                    <Label> Termo de Conduta</Label>
+
           <Input
             type="file"
             accept=".pdf, .png, .jpg, .jpeg"
             {...register("termo_conduta")}
             placeholder="Termo de Conduta"
           />
+
+<Label>Direito de Imagem</Label>
+
           <Input
             type="file"
             accept=".pdf, .png, .jpg, .jpeg"
