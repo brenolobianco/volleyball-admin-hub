@@ -6,7 +6,7 @@ use App\Models\Aluno;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 
 class StudentsController extends Controller
 {
@@ -45,7 +45,27 @@ class StudentsController extends Controller
         return response()->json($aluno, 201);
     }
 
+   
 
+
+     
+    public function downloadFile($id, $filename)
+    {
+        $aluno = Aluno::findOrFail($id);
+    
+        // Verificar se o aluno possui o arquivo com o nome fornecido
+        if ($aluno->{$filename}) {
+         
+            $filePath = storage_path('app/' . $aluno->{$filename});
+        
+       
+                return response()->download($filePath);
+            
+        }
+    
+        return response()->json(['error' => 'Arquivo não encontrado'], 404);
+    }
+    
 
     public function editarAluno(Request $request, $id)
     {
@@ -73,11 +93,12 @@ class StudentsController extends Controller
 
     public function listarAlunos()
     {
-
-        $alunos = Aluno::all()->toArray();
-
+        // Carrega os alunos com os dados da turma relacionada
+        $alunos = Aluno::with('turma')->get()->toArray();
+    
         return response()->json($alunos);
     }
+    
 
   
 }

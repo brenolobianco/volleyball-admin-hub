@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login',  [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::post ('/cadastrar',[AuthController::class,'cadastrar']);
-
+Route::get('/alunos/{id}/download/{filename}', [StudentsController::class, 'downloadFile']);
 
 // Rotas protegidas
 
@@ -37,7 +37,7 @@ Route::delete('/usuarios/{id}', [AuthController::class, 'deletarUsuario']);
     Route::delete('/turmas/{id}', [ClassController::class, 'deletarTurma']);
     
     Route::get ('/alunos',[StudentsController::class,'listarAlunos']);
-
+  
     Route::post ('/alunos',[StudentsController::class,'cadastrarAluno']);
     Route::put ('/alunos/{id}',[StudentsController::class,'editarAluno']);
     Route::delete ('/alunos/{id}',[StudentsController::class,'deletarAluno']);
