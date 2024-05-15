@@ -17,7 +17,6 @@ class StudentsController extends Controller
             'nome' => 'required|string|min:5',
             'id_turma' => 'required|integer',
             'data_nascimento' => 'nullable|date',
-          
             'endereco' => 'nullable|string',
             'hospital_preferido' => 'nullable|string',
             'imagem_perfil' => 'nullable|file', 

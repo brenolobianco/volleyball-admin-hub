@@ -24,14 +24,14 @@ class ClassController extends Controller
     {
      
         $validator = Validator::make($request->all(), [
-            'titulo' => 'required|unique:turmas',
+            'titulo' => 'required',
             'horario' => 'required',
             'professor' => 'required',
 
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => 'Dados inválidos'], 400);
+        if ($validator->fails()) {  $errors = $validator->errors()->all();
+            return response()->json(['error' => 'Dados inválidos','mensagens' => $errors], 400);
         }
 
         $turma = Turma::create($request->all());

@@ -46,6 +46,7 @@ Route::delete('/usuarios/{id}', [AuthController::class, 'deletarUsuario']);
         if ($user) {
             return response()->json([
                 'user_type' => $user->tipo,
+                'user_name' => $user->nome,
                 'authenticated' => true
             ]);
         } else {
