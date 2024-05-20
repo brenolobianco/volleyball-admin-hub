@@ -8,6 +8,7 @@ import {
   Input,
   Button,
   ErrorText,
+  Header,
 } from "./Styles";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -44,9 +45,10 @@ const LoginPage: React.FC = () => {
         localStorage.setItem("UserName", json.usuario.nome);
   setTimeout(() => {
     navigate("/dashboard");
-  },2000)
+  },1000)
      
         toast.success("Login realizado com sucesso!");
+     
       } else {
         setError("Credenciais inválidas");
         toast.error("Credenciais inválidas");
@@ -59,16 +61,17 @@ const LoginPage: React.FC = () => {
     }
   };
   return (
+    
     <Container>
-      <LoginForm onSubmit={handleSubmit(onSubmit)}>
-        <Title>Login</Title>
-        <Input type="login" {...register("login")} placeholder="Login" />
-        <Input type="password" {...register("password")} placeholder="Senha" />
-        <Button type="submit">Entrar</Button>
-      
-        {error && <ErrorText>{error}</ErrorText>}
-      </LoginForm>
-    </Container>
+   
+    <LoginForm onSubmit={handleSubmit(onSubmit)}>
+      <Title>Login</Title>
+      <Input type="login" {...register("login")} placeholder="Login" />
+      <Input type="password" {...register("password")} placeholder="Senha" />
+      <Button type="submit">Entrar</Button>
+      {error && <ErrorText>{error}</ErrorText>}
+    </LoginForm>
+  </Container>
   );
 };
 

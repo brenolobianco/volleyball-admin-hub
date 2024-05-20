@@ -3,12 +3,12 @@ import { ProtectRoute, ProtectRoutePermission } from "./ProtectedRoute";
 import Dashboard from "../Pages/Home/Home";
 
 import Login from "../Pages/Login/Login";
-import RegisterPage from "../Pages/Students/Register/RegisterStudents";
+import RegisterPage from "../Pages/Students/RegisterStudents/RegisterStudents";
 import ListStudents from "../Pages/Students/ListStudents/ListSudents";
-import RegisterClass from "../Pages/RegisterClass/RegisterClass/RegisterClass";
-import UserAdmin from "../Pages/UsersManager/UserList/UserList";
-import UserRegister from "../Pages/UsersManager/UserRegister/UserRegister";
-import ListClass from "../Pages/RegisterClass/ClassList/ClassList";
+import RegisterClass from "../Pages/Classes/RegisterClass/RegisterClass";
+import UserAdmin from "../Pages/Users/ListUsers/ListUsers";
+import UserRegister from "../Pages/Users/UserRegister/UserRegister";
+import ListClass from "../Pages/Classes/ListClasses/ListClasses";
 
 export const RoutesMain = () => {
   return (

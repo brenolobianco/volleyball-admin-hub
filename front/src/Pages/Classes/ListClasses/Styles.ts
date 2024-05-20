@@ -11,8 +11,17 @@ export const PageContainer = styled.div`
 `;
 
 export const ContentContainer = styled.div`
-  width: 60%;
+  width: 90%;
+  max-width: 800px;
   margin-top: 40px;
+
+  @media (min-width: 768px) {
+    width: 80%;
+  }
+
+  @media (min-width: 992px) {
+    width: 60%;
+  }
 `;
 
 export const ListContainer = styled.div`
@@ -61,6 +70,12 @@ export const ListItem = styled.div`
   strong {
     color: #000000;
   }
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 export const Button = styled.button`
@@ -69,7 +84,7 @@ export const Button = styled.button`
   border: none;
   border-radius: 4px;
   padding: 8px 16px;
-  width:75px ;
+  width: 75px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -116,6 +131,18 @@ const Pagination = styled.nav`
         background-color: #007bff;
         color: #ffffff;
       }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .pagination {
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .page-link {
+      padding: 6px 10px;
     }
   }
 `;

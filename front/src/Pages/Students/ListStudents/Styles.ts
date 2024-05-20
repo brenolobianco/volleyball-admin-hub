@@ -12,27 +12,25 @@ export const Container = styled.div`
   padding: 20px;
   margin-left: 250px;
   margin-top: 50px;
+ 
 `;
 
 export const StudentContainer = styled.div`
-  background-color: #fff;
-  border: 1px solid #ddd;
+ 
+
+
   border-radius: 8px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+ 
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
+  
 `;
 
 export const StudentHeader = styled.div`
-  background-color: #f0f0f0;
-  border-bottom: 1px solid #ddd;
+  background-color: #f0f0ff;
+  border: 1px solid black;
   padding: 20px;
-  border-radius: 8px 8px 0 0;
+ border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -48,12 +46,12 @@ export const StudentHeader = styled.div`
 export const StudentDetails = styled.div`
   padding: 20px;
   background-color: #f9f9f9;
-  border-bottom: 1px solid #ddd;
+  border: 1px solid #555;
   border-radius: 0 0 8px 8px;
 
   p {
-    margin: 10px 0;
-    font-size: 1rem;
+    margin: 10px ;
+    font-size: 1.1rem;
     line-height: 1.6;
     color: #555;
   }
@@ -68,10 +66,11 @@ export const StudentDetails = styled.div`
     color: #fff;
     border: none;
     padding: 8px 16px;
+   
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin: 5px 0;
+    margin: 5px 12px;
 
     &:hover {
       background-color: #0056b3;
@@ -102,7 +101,7 @@ export const EmptyMessage = styled.p`
 export const Pagination = styled.nav`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 57vh;
 
   .pagination {
     display: flex;

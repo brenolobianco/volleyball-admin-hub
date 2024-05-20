@@ -78,7 +78,7 @@ const UserAdmin: React.FC = () => {
               <p><strong>Nome:</strong> {user.nome}</p>
               <p><strong>Login:</strong> {user.login}</p>
               <p><strong>Tipo:</strong> {user.tipo}</p>
-              <p><strong>Cadastrado em:</strong> {new Date(user.created).toLocaleDateString()}</p>
+              <p><strong>Cadastrado em:</strong> {new Date(user.created_at).toLocaleDateString()}</p>
               {userType === "administrador" && (
                 <Button onClick={() => handleDelete(user.id)}>Deletar</Button>
               )}

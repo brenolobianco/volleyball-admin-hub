@@ -5,45 +5,45 @@ import {
   WelcomeText,
   NavLinks,
   SubmenuItem,
-  NavItemWithSubMenu,LogoutButton,
-  Submenu
+  NavItemWithSubMenu,
+  LogoutButton,
+  Submenu,
 } from "./Styles";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import fetchUserType from "../../Pages/utils/apiUtils";
+import { toast } from "react-toastify";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const SideBar = () => {
   const navigate = useNavigate();
-  const [userType, setUserType] = useState("");
+
   const [showAlunosSubMenu, setShowAlunosSubMenu] = useState(false);
   const [showTurmasSubMenu, setShowTurmasSubMenu] = useState(false);
   const [showUsuariosSubMenu, setShowUsuariosSubMenu] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const userType = localStorage.getItem("userType");
+  const userName = localStorage.getItem("UserName");
 
   useEffect(() => {
-    const cachedUserType = localStorage.getItem("userType");
-    if (cachedUserType) {
-      setUserType(cachedUserType);
-    } else {
-      fetchUserType().then(({ userType }) => {
-        setUserType(userType);
-        localStorage.setItem("userType", userType); // Armazenar o userType em cache
-      });
-    }
+    fetchUserType().then(({ isAuthenticated }) => {
+      setIsAuthenticated(isAuthenticated);
+    });
   }, []);
-
   const handleLogout = () => {
     try {
       localStorage.clear();
       axios.post(`${apiUrl}/logout`);
       navigate("/");
+      toast.success("Logout realizado com sucesso!");
     } catch (error) {
       console.error("Erro ao fazer logout:", error);
     }
   };
-  const loggedInUserName = localStorage.getItem("UserName");
+
   return (
     <>
       <NavBar>
@@ -78,7 +78,7 @@ const SideBar = () => {
             )}
           </NavItemWithSubMenu>
 
-          {showAlunosSubMenu && <div style={{ height: 'auto' }} />}
+          {showAlunosSubMenu && <div style={{ height: "auto" }} />}
 
           <NavItemWithSubMenu
             title="Turmas"
@@ -101,7 +101,7 @@ const SideBar = () => {
             )}
           </NavItemWithSubMenu>
 
-          {showTurmasSubMenu && <div style={{ height: 'auto' }} />}
+          {showTurmasSubMenu && <div style={{ height: "auto" }} />}
 
           <NavItemWithSubMenu
             title="Usuários"
@@ -124,10 +124,10 @@ const SideBar = () => {
             )}
           </NavItemWithSubMenu>
 
-          {showUsuariosSubMenu && <div style={{ height: 'auto' }} />}
+          {showUsuariosSubMenu && <div style={{ height: "auto" }} />}
         </NavLinks>
         <WelcomeText>
-          Bem-vindo, {loggedInUserName} ({userType})
+          {userName},<br /> {userType}
         </WelcomeText>
         <LogoutButton onClick={handleLogout}>Sair</LogoutButton>
       </NavBar>

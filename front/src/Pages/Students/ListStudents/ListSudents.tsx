@@ -120,10 +120,10 @@ const ListStudents: React.FC = () => {
               value={searchTerm}
               onChange={handleSearchChange}
               style={{
-                width: '100%',
+                width: '20%',
                 padding: '10px',
                 borderRadius: '4px',
-                border: '1px solid #ddd',
+                border: '2px solid black',
               }}
             />
           </div>

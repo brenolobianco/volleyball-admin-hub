@@ -11,10 +11,11 @@ const fetchUserType = async () => {
       },
     });
     const userType = response.data.user_type;
+    const userName = response.data.user_name;
     const isAuthenticated = userType !== null && userType !== undefined;
-    return { userType, isAuthenticated };
+    return { userType, isAuthenticated,userName };
   } catch (error) {
-    return { userType: "", isAuthenticated: false };
+    return { userType: "", isAuthenticated: false, userName:""};
   }
 };
 

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Button, ContentContainer, ListContainer, ListHeader, ListItem, PageContainer } from "./Styles";
-import { EmptyMessage } from "../../Home/Styles";
+
 import fetchUserType from "../../utils/apiUtils";
-import { NavBar } from "../../../components/SideBard/Styles";
+
 import SideBar from "../../../components/SideBard/SideBar";
 import { Pagination } from "../../Students/ListStudents/Styles";
 
@@ -83,7 +83,8 @@ const ListClass: React.FC = () => {
               <ListItem>
                 <p><strong>Horário:</strong> {turma.horario}</p>
                 <p><strong>Professor:</strong> {turma.professor}</p>
-                <p><strong>Cadastrado em:</strong> {turma.created_at}</p>
+                <strong>Data de Cadastro:</strong>
+                    {new Date(turma.created_at).toLocaleDateString()}
                 {userType === "administrador" && (
                   <Button onClick={() => handleDelete(turma.id)}>Deletar</Button>
                 )}

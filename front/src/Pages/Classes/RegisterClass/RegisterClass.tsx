@@ -23,7 +23,7 @@ type FormData = {
   titulo: string;
   horario: string;
   professor: string;
-  tipo: string;
+
 };
 
 const RegisterClass: React.FC = () => {
@@ -39,7 +39,7 @@ const RegisterClass: React.FC = () => {
       formData.append("titulo", data.titulo);
       formData.append("horario", data.horario);
       formData.append("professor", data.professor);
-      formData.append("tipo_usuario", data.tipo);
+    
 
       const token = localStorage.getItem("@VolleyHub:token");
 
@@ -54,7 +54,7 @@ const RegisterClass: React.FC = () => {
         toast.success("Cadastro realizado com sucesso!");
       } else {
         toast.error(
-          "Erro ao fazer cadastro. Por favor, tente novamente mais tarde."
+          "Erro ao fazer cadastro. Por favor, tente novamente  tarde."+ response.data.mensagens
         );
       }
     } catch (error) {
