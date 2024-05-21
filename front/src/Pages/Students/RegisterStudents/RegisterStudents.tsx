@@ -174,16 +174,17 @@ const RegisterStudents: React.FC = () => {
           </LabelInput>
 
           <LabelInput>
-            <Label>Turma:</Label>
-            <Select {...register("id_turma")}>
-              <option value="">Escolha a turma</option>
-              {turmas.map((turma) => (
-                <option key={turma.id} value={turma.id}>
-                  {`${turma.titulo} - ${turma.horario}`}
-                </option>
-              ))}
-            </Select>
-          </LabelInput>
+  <Label>Turma:</Label>
+  <Select {...register("id_turma", { required: "Turma é obrigatório" })}>
+    <option value="">Escolha a turma</option>
+    {turmas.map((turma) => (
+      <option key={turma.id} value={turma.id}>
+        {`${turma.titulo} - ${turma.horario}`}
+      </option>
+    ))}
+  </Select>
+</LabelInput>
+
 
           <LabelInput>
             <Label>Nome do Responsável:</Label>

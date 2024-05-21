@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   padding: 20px;
 
   @media (max-width: 768px) {
@@ -19,15 +19,16 @@ export const Container = styled.div`
 export const RegisterForm = styled.form`
   width: 80%;
   max-width: 650px;
-  margin-top: 50px;
+ 
   background: rgba(255, 255, 240, 0.5);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   gap: 21px;
+
   justify-content: center;
   align-items: center;
-  padding: 35px;
+  padding: 30px;
   box-shadow: 0 8px 20px 0;
   backdrop-filter: blur(8.5px);
   -webkit-backdrop-filter: blur(8.5px);
