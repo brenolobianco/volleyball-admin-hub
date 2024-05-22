@@ -34,7 +34,7 @@ const UserAdmin: React.FC = () => {
     };
 
     fetchUsers();
-  }, [users]);
+  }, []);
 
   const handleDelete = async (id: number) => {
     try {
