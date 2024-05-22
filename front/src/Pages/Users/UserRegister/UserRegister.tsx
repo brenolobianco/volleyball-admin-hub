@@ -31,18 +31,13 @@ const UserRegister: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
-      if (!isAuthenticated) {
-        toast.error("Você precisa estar autenticado para realizar esta operação.");
-        return;
-      }
-
       if (userType === "administrador") {
         const response = await axios.post(`${apiUrl}/cadastrar`, data, {
           headers: {
             "Content-Type": "application/json",
           },
         });
-
+  
         if (response.status === 201) {
           toast.success("Cadastro realizado com sucesso!");
         } else {
@@ -51,11 +46,22 @@ const UserRegister: React.FC = () => {
       } else {
         toast.error("Você não tem permissão para realizar esta operação.");
       }
-    } catch (error) {
-      toast.error("Erro ao fazer cadastro. Por favor, tente novamente mais tarde.");
+    } catch (error: any) {
+      if (error.response && error.response.data.errors) {
+        // Extraindo as mensagens de erro para todos os campos da resposta da API
+        const errors = error.response.data.errors;
+        Object.keys(errors).forEach(key => {
+          errors[key].forEach((message: string)  => {
+            toast.error(message);
+          });
+        });
+      } else {
+        // Mensagem de erro genérica se a resposta não contiver detalhes de erro esperados
+        toast.error("Erro ao fazer cadastro. Por favor, tente novamente mais tarde.");
+      }
     }
   };
-
+  
   return (
     <>
       <Navbar />
