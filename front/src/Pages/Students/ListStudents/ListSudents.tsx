@@ -132,17 +132,18 @@ const ListStudents: React.FC = () => {
               <StudentHeader>
                 <h2>{student.nome}</h2>
                 <Button onClick={() => handleExpand(student.id)}>
-                  {expanded === student.id ? "Detalhes" : "Mostrar mais"}
+                  {expanded === student.id ? "Mostrar menos" : "Mostrar mais"}
                 </Button>
               </StudentHeader>
               {expanded === student.id && (
                 <StudentDetails>
-                  <p>
-                    <strong>Data de Nascimento:</strong>{" "}
-                    {student.data_nascimento
-                      ? new Date(student.data_nascimento).toLocaleDateString()
-                      : "Não disponível"}
-                  </p>
+                 <p>
+  <strong>Data de Nascimento:</strong>{" "}
+  {student.data_nascimento
+    ? new Date(student.data_nascimento + 'T00:00:00').toLocaleDateString('pt-BR')
+    : "Não disponível"}
+</p>
+
                   <p>
                     <strong>Endereço:</strong> {student.endereco}
                   </p>
@@ -188,7 +189,7 @@ const ListStudents: React.FC = () => {
                     <strong>Termo de Conduta:</strong>
                     {student.termo_conduta ? (
                       <button onClick={() => downloadFile(student.id, 'termo_conduta')}>
-                        Termo Conduta
+                        Baixar Termo de Conduta
                       </button>
                     ) : (
                       "Não disponível"
@@ -220,7 +221,7 @@ const ListStudents: React.FC = () => {
                   </p>
                   {localStorage.getItem("userType") === "administrador" && (
                     <>
-                      <Button onClick={() => handleDelete(student.id)}>
+                      <Button style={{ backgroundColor: "red", color: "white", marginTop: "10px" }} onClick={() => handleDelete(student.id)}>
                         Deletar
                       </Button>
                     </>

@@ -16,21 +16,17 @@ export const Container = styled.div`
 `;
 
 export const StudentContainer = styled.div`
- 
-
 
   border-radius: 8px;
   margin-bottom: 20px;
  
-
-  
 `;
 
 export const StudentHeader = styled.div`
   background-color: #f0f0ff;
   border: 1px solid black;
   padding: 20px;
- border-radius: 8px;
+ border-radius: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
